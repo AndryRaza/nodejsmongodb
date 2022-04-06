@@ -4,3 +4,4 @@
 
 - Express
 - mongodb
+- mongoose
