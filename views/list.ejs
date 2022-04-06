@@ -11,6 +11,8 @@
 </head>
 
 <body>
+    <%- include('navbar'); -%>
+
     <div class="container">
         <table class="table">
             <thead>
@@ -29,7 +31,11 @@
                         <td>
                             <%= person.firstName %>
                         </td>
-                        <td><button class="btn btn-danger" onclick="deletePerson('<%= person._id %>')">Supprimer</button></td>
+                       
+                        <td>
+                            <button class="btn btn-primary" onclick="toEdit('<%= person._id %>')">Modifier</button>
+                            <button class="btn btn-danger" onclick="deletePerson('<%= person._id %>')">Supprimer</button>
+                        </td>
                     </tr>
                     <% }); %>
             </tbody>
@@ -42,7 +48,6 @@
     crossorigin="anonymous"></script>
 <script>
     async function deletePerson (id) {
-        console.log(id)
         await fetch(`http://localhost:3000/personne/${id}`, {
                 method: "DELETE",
                 headers: { 'Content-Type': 'application/json' }
@@ -50,7 +55,11 @@
               .then(res => {
                   window.location.reload();
               })
-        
     }
+
+    function toEdit(id){
+        window.location.href = `/personne/${id}`;
+    }
+
 </script>
 </html>
