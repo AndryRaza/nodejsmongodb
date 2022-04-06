@@ -95,3 +95,25 @@ app.patch("/personne/:id",function (request,response){
     })
 
 })
+
+app.get('/personnes',function(request,response){
+    person.find().then(res=>{
+        console.log(res)
+        response.render("list",{tab : res})
+    })
+    .catch(err=>{
+        response.status(403).send({ result: "not_ok", data:err })
+    })
+})
+
+app.delete('/personne/:id',function(request,response){
+
+    const id = request.params.id;
+
+    person.findByIdAndDelete(id).then(res=>{
+        response.status(200).send({ result: "ok", data: res })
+    })
+    .catch(err=>{
+        response.status(403).send({ result: "not_ok", data:err })
+    })
+})
