@@ -50,8 +50,11 @@ router.get('/personne/:id',function(request,response){
     person.findById(id)
         .populate('teacher')
         .then(res=>{
-        console.log(res)
-        response.status(200).render("edit",res)
+            teacher.find().then(res_ =>{
+                response.status(200).render("edit",{person : res, teachers : res_})
+            })
+        //response.send(res)
+
     })
     .catch(err=>{
         response.status(403).send({ result: "not_ok", data:err })

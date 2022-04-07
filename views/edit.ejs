@@ -15,12 +15,19 @@
         <h1>Edition</h1>
         <div class="mb-3">
             <label for="lastNAme" class="form-label">Nom</label>
-            <input type="text" class="form-control" id="lastName" value=<%= firstName %>>
+            <input type="text" class="form-control" id="lastName" value=<%= person.firstName %>>
         </div>
         <div class="mb-3">
             <label for="firstName" class="form-label">Prénom</label>
-            <input type="text" class="form-control" id="firstName" value=<%= lastName %> >
+            <input type="text" class="form-control" id="firstName" value=<%= person.lastName %> >
         </div>
+        <select id="teacherId" class="form-select mb-3" aria-label="Default select example">
+            <option selected>Choisir le professeur</option>
+            <% teachers.forEach(function (t) { %>
+            <option value="<%= t.id %>" <% if(t.id == person.teacher.id) { %> selected <% } %> ><%= t.name %></option>
+                <% }); %>
+          </select>
+          <input type="hidden" id="personId" value="<%= person.id %>" />
         <button class="btn btn-primary" onclick="update()">Modifier</button>
     </div>
 
@@ -33,14 +40,15 @@
 
     async function update() {
 
-        const id = "624d3408f2439b40ee56356c";
+        const id = document.getElementById('personId').value;
 
         response = await fetch(`http://localhost:3000/personne/${id}`, {
             method: "PATCH",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 lastName: document.getElementById('lastName').value,
-                firstName: document.getElementById('firstName').value
+                firstName: document.getElementById('firstName').value,
+                teacher : document.getElementById('teacherId').value
             })
         })
 

@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const url = 'mongodb+srv://andry:andry@cluster0.pkqfu.mongodb.net/'
-const dbName = 'nodetp';
 const course = require('./models/course')
 const teacher = require('./models/teacher')
 
-mongoose.connect(url + dbName)
+mongoose.connect(process.env.MONGO_URI)
     .then((result) => app.listen(5000))
     .catch((err) => console.log(err))
 
