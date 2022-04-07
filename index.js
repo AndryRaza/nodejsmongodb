@@ -32,4 +32,4 @@ app.get("/", function (request, response) {
 });
 
 app.use('/',personRouter);
-app.use('/teacher',teacherRouter)
+app.use('/teachers',teacherRouter)

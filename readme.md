@@ -7,7 +7,6 @@
 ## Packages installés
 
 - Express
-- mongodb
 - mongoose
 - dotenv
 - nodemon
