@@ -2,33 +2,38 @@ var express = require('express');
 var router = express.Router();
 
 const teacher = require('../models/teacher');
-
-router.get('/',function(request,response){
+const lesson = require('../models/lesson')
+router.get('/', function (request, response) {
     teacher.find()
-    .populate({path:'persons'})
-        .then(res=>{
-            response.render('listTeacher',{tab:res})
+        .populate({
+            path: 'persons',
+            populate: { 
+                path: 'lessons' }
         })
-        .catch(err=>{
-            response.status(403).send({result:'not_ok',data:err})
+        .then(res => {
+            console.log(res)
+            response.render('listTeacher', { tab: res })
+        })
+        .catch(err => {
+            response.status(403).send({ result: 'not_ok', data: err })
         })
 
 })
 
-router.get('/:id',function(request,response){
+router.get('/:id', function (request, response) {
     const id = request.params.id;
 
-    if(!id)
-    {
-        response.status(403).send({result:'not_ok',data:'No id paramater'})
+    if (!id) {
+        response.status(403).send({ result: 'not_ok', data: 'No id paramater' })
     }
     teacher.findById(id)
-    .populate('persons')
-        .then(res=>{
-            response.status(200).send({result : 'ok',data:res})
+        .populate('persons')
+        .then(res => {
+            console.log(res)
+            response.status(200).send({ result: 'ok', data: res })
         })
-        .catch(err=>{
-            response.status(403).send({result:'not_ok',data:err})
+        .catch(err => {
+            response.status(403).send({ result: 'not_ok', data: err })
         })
 })
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const course = require('./models/course')
+const lesson = require('./models/lesson')
 const teacher = require('./models/teacher')
 
 mongoose.connect(process.env.MONGO_URI)
@@ -9,22 +9,22 @@ mongoose.connect(process.env.MONGO_URI)
     .catch((err) => console.log(err))
 
 
-const courses = [
+const lessons = [
     {
         name: 'Dev c#',
-        person: '624d3408f2439b40ee56356c'
+        person: '624e88d66ed2d0afd0e5e662'
     },
     {
         name: 'Dev Java',
-        person: '624d3408f2439b40ee56356c'
+        person: '624e88d66ed2d0afd0e5e662'
     },
     {
         name: 'Dev Javascript',
-        person: '624d3408f2439b40ee56356c'
+        person: '624e88d66ed2d0afd0e5e662'
     },
     {
         name: 'Dev Python',
-        person: '624d3408f2439b40ee56356c'
+        person: '624e88d66ed2d0afd0e5e662'
     },
 ]
 
@@ -45,11 +45,11 @@ const teachers = [
 ]
 
 const seedDB = async () => {
-    await course.deleteMany({});
-    await course.insertMany(courses);
+    await lesson.deleteMany({});
+    await lesson.insertMany(lessons);
 
-    await teacher.deleteMany({});
-    await teacher.insertMany(teachers);
+    // await teacher.deleteMany({});
+    // await teacher.insertMany(teachers);
 }
 
 seedDB().then(() => {
