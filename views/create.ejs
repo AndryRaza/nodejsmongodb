@@ -29,6 +29,12 @@
             <option value="<%= t.id %>"><%= t.name %></option>
                 <% }); %>
           </select>
+        <select id="lessonName" class="form-select mb-3" aria-label="Default select example">
+            <option selected>Assigner un cours</option>
+            <% lessons.forEach(function (l) { %>
+            <option value="<%= l.name %>"><%= l.name %></option>
+                <% }); %>
+          </select>
         <button class="btn btn-primary" onclick="send()">Ajouter</button>
     </div>
 
@@ -46,7 +52,8 @@
                 body:JSON.stringify({
                     lastName : document.getElementById('lastName').value,
                     firstName : document.getElementById('firstName').value,
-                    teacher : document.getElementById('teacherId').value
+                    teacher : document.getElementById('teacherId').value,
+                    lessonName : document.getElementById('lessonName').value
                 })
             })
               

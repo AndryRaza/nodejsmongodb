@@ -3,14 +3,17 @@ var router = express.Router();
 
 const person = require('../models/person')
 const teacher = require('../models/teacher');
+const lesson = require('../models/lesson');
+var mongoose = require('mongoose');
 
 router.get("/create", function (request, response) {
 
      teacher.find()
         .then(res=>{
-            response.render("create",{tab : res});
+            lesson.find().then(res_=>{
+                response.render("create",{tab : res,lessons : res_});
+            })
         })
-
 
 });
 
@@ -19,6 +22,7 @@ router.put("/personne", function (request, response) {
     const firstName = request.body.firstName;
     const lastName = request.body.lastName;
     const teacher = request.body.teacher;
+    const lessonName = request.body.lessonName;
 
     const newperson = {
         firstName: firstName,
@@ -26,13 +30,24 @@ router.put("/personne", function (request, response) {
         teacher : teacher
     }
 
-    if(!firstName || !lastName)
+    if(!firstName || !lastName || !teacher || !lessonName)
     {
         response.status(403).send({ result: "not_ok", data:"error parameters" })
     }
 
     person.create(newperson).then(r => {
-        response.status(200).send({ result: "ok", data: newperson })
+        const assign = {
+            name : lessonName,
+            person : mongoose.Types.ObjectId(r.id)
+        }
+        lesson.create(assign)
+            .then(res=>{
+                response.status(200).send({result:"ok",data:res})
+            })
+            .catch(err=>{
+                response.status(403).send({result:"not_ok",data:err})
+            })
+        // response.status(200).send({ result: "ok", data: newperson })
     })
         .catch(err => {
             response.status(403).send({ result: "not_ok", data: err })

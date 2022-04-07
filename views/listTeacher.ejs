@@ -12,7 +12,6 @@
 
 <body>
     <div class="container">
-        <%= tab %>
         <%- include('navbar'); -%>
             <h2>Liste des professeurs </h2>
             <% tab.forEach( function (t) { %>
@@ -22,15 +21,22 @@
                 </h3>
                 <h4>Élèves :</h4>
                 <% t.persons.forEach( function (p) { %>
-                    <p>
-                        <%= p.firstName %>
-                            <%= p.lastName %>
-                    </p>
+                 
+                        <p>
+                            <%= p.firstName %>
+                                <%= p.lastName %> :
+                       
 
+                    
+                            <% p.lessons.forEach( function (l) { %>
+                                <%= l.name %> -
+                                    <% }); %>
+                        </p>
+              
                 <% }); %>
-                <hr />
+                        <hr />
             <% }); %>
-            
+
     </div>
 
 </body>

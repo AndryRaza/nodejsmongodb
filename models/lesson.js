@@ -8,8 +8,7 @@ const lessonSchema = new Schema({
     },
     person: {
         type: Schema.Types.ObjectId,
-        ref: 'Person',
-        required: true
+        ref: 'Person'
     }
 },
     {
@@ -17,6 +16,6 @@ const lessonSchema = new Schema({
         toObject: { virtuals: true } // So `console.log()` and other functions that use `toObject()` include virtuals
     }, { timestamps: true })
 
-const lesson = mongoose.model('lesson', lessonSchema, 'lessons');
+const lesson = mongoose.model('Lesson', lessonSchema, 'lessons');
 
 module.exports = lesson
