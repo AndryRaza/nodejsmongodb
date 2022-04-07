@@ -3,8 +3,9 @@ var router = express.Router();
 
 const teacher = require('../models/teacher');
 
-router.get('/all',function(request,response){
+router.get('/',function(request,response){
     teacher.find()
+    .populate({path:'persons'})
         .then(res=>{
             response.status(200).send({result:'ok',data:res})
         })
@@ -22,6 +23,7 @@ router.get('/find/:id',function(request,response){
         response.status(403).send({result:'not_ok',data:'No id paramater'})
     }
     teacher.findById(id)
+    .populate('persons')
         .then(res=>{
             response.status(200).send({result : 'ok',data:res})
         })

@@ -2,20 +2,28 @@ var express = require('express');
 var router = express.Router();
 
 const person = require('../models/person')
+const teacher = require('../models/teacher');
 
 router.get("/create", function (request, response) {
 
-    response.render("create");
+     teacher.find()
+        .then(res=>{
+            response.render("create",{tab : res});
+        })
+
+
 });
 
 router.put("/personne", function (request, response) {
 
     const firstName = request.body.firstName;
     const lastName = request.body.lastName;
+    const teacher = request.body.teacher;
 
     const newperson = {
         firstName: firstName,
-        lastName: lastName
+        lastName: lastName,
+        teacher : teacher
     }
 
     if(!firstName || !lastName)
@@ -39,9 +47,10 @@ router.get('/personne/:id',function(request,response){
         response.status(403).send({ result: "not_ok", data:"error id" })
     }
 
-    person.findById(id).then(res=>{
+    person.findById(id)
+        .populate('teacher')
+        .then(res=>{
         console.log(res)
-       // response.status(200).send({ result: "ok", data: res })
         response.status(200).render("edit",res)
     })
     .catch(err=>{
