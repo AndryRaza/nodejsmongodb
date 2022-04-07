@@ -56,10 +56,12 @@ router.patch("/personne/:id",function (request,response){
 
     const firstName = request.body.firstName;
     const lastName = request.body.lastName;
+    const teacher = request.body.teacher;
 
     const _person = {
         firstName: firstName,
-        lastName: lastName
+        lastName: lastName,
+        teacher : teacher
     }
 
     person.findByIdAndUpdate(id,_person).then(res=>{

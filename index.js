@@ -8,6 +8,7 @@ const person = require('./models/person.js')
 const mongoose = require('mongoose');
 
 const personRouter = require('./routes/person')
+const teacherRouter = require('./routes/teacher')
 
 mongoose.connect(url + dbName, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -30,4 +31,5 @@ app.get("/", function (request, response) {
     response.render("home");
 });
 
-app.use('/',personRouter)
+app.use('/',personRouter);
+app.use('/teacher',teacherRouter)
