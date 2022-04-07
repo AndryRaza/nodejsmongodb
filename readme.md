@@ -1,7 +1,13 @@
 # TP Simplon Nodejs/Mongo
 
-## Packages utilisés 
+## Seeding 
+
+> node seed.js
+
+## Packages installés
 
 - Express
 - mongodb
 - mongoose
+- dotenv
+- nodemon
