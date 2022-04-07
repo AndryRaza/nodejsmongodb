@@ -7,8 +7,9 @@ const dbName = 'nodetp';
 const person = require('./models/person.js')
 const mongoose = require('mongoose');
 
-const personRouter = require('./routes/person')
-const teacherRouter = require('./routes/teacher')
+const personRouter = require('./routes/person');
+const teacherRouter = require('./routes/teacher');
+const lessonRouter = require('./routes/lesson');
 
 require('dotenv').config()
 
@@ -34,4 +35,5 @@ app.get("/", function (request, response) {
 });
 
 app.use('/',personRouter);
-app.use('/teachers',teacherRouter)
+app.use('/teachers',teacherRouter);
+app.use('/lessons',lessonRouter)

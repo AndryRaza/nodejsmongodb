@@ -21,8 +21,8 @@ router.put("/personne", function (request, response) {
 
     const firstName = request.body.firstName;
     const lastName = request.body.lastName;
-    const teacher = request.body.teacher;
-    const lessonName = request.body.lessonName;
+    const teacher = request.body.teacher || null;
+    const lessonName = request.body.lessonName || null; 
 
     const newperson = {
         firstName: firstName,
@@ -30,27 +30,33 @@ router.put("/personne", function (request, response) {
         teacher : teacher
     }
 
-    if(!firstName || !lastName || !teacher || !lessonName)
+    if(!firstName || !lastName)
     {
         response.status(403).send({ result: "not_ok", data:"error parameters" })
     }
 
     person.create(newperson).then(r => {
-        const assign = {
-            name : lessonName,
-            person : mongoose.Types.ObjectId(r.id)
+        if(!lessonName || lessonName=="")
+        {
+            response.status(200).send({result:"ok",data:r})
         }
-        lesson.create(assign)
-            .then(res=>{
-                response.status(200).send({result:"ok",data:res})
-            })
-            .catch(err=>{
-                response.status(403).send({result:"not_ok",data:err})
-            })
-        // response.status(200).send({ result: "ok", data: newperson })
+        else{
+            const assign = {
+                name : lessonName,
+                person : mongoose.Types.ObjectId(r.id)
+            }
+            lesson.create(assign)
+                .then(res=>{
+                    response.status(200).send({result:"ok",data:res})
+                })
+                .catch(err=>{
+                    response.status(403).send({result:"not_ok_lesson",data:err})
+                })
+        }
+      
     })
         .catch(err => {
-            response.status(403).send({ result: "not_ok", data: err })
+            response.status(403).send({ result: "not_ok_person", data: err })
         })
 
 })

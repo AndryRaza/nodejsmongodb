@@ -11,20 +11,16 @@ mongoose.connect(process.env.MONGO_URI)
 
 const lessons = [
     {
-        name: 'Dev c#',
-        person: '624e88d66ed2d0afd0e5e662'
+        name: 'Dev c#'
     },
     {
-        name: 'Dev Java',
-        person: '624e88d66ed2d0afd0e5e662'
+        name: 'Dev Java'
     },
     {
-        name: 'Dev Javascript',
-        person: '624e88d66ed2d0afd0e5e662'
+        name: 'Dev Javascript'
     },
     {
-        name: 'Dev Python',
-        person: '624e88d66ed2d0afd0e5e662'
+        name: 'Dev Python'
     },
 ]
 
@@ -48,8 +44,8 @@ const seedDB = async () => {
     await lesson.deleteMany({});
     await lesson.insertMany(lessons);
 
-    // await teacher.deleteMany({});
-    // await teacher.insertMany(teachers);
+    await teacher.deleteMany({});
+    await teacher.insertMany(teachers);
 }
 
 seedDB().then(() => {

@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const teacherSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        validate :[/^[A-Za-z ]+$/,"invalid name"]
     }
 },
     {

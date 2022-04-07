@@ -22,13 +22,37 @@
             <input type="text" class="form-control" id="firstName" value=<%= person.lastName %> >
         </div>
         <select id="teacherId" class="form-select mb-3" aria-label="Default select example">
-            <option selected>Choisir le professeur</option>
+            <option selected></option>
             <% teachers.forEach(function (t) { %>
-            <option value="<%= t.id %>" <% if(t.id == person.teacher.id) { %> selected <% } %> ><%= t.name %></option>
+            <option value="<%= t.id %>" <% if((t.id == person.teacher?.id) && (person.teacher)) { %> selected <% } %> ><%= t.name %></option>
                 <% }); %>
           </select>
           <input type="hidden" id="personId" value="<%= person.id %>" />
         <button class="btn btn-primary" onclick="update()">Modifier</button>
+    </div>
+
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto">Ok</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Modification faite !
+            </div>
+        </div>
+    </div>
+
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="failedToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Pas bon</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Une erreur s'est produite.
+            </div>
+        </div>
     </div>
 
 </body>
@@ -52,7 +76,18 @@
             })
         })
 
-        console.log(response)
+        var successToastF = document.getElementById('successToast')
+        var failedToastF = document.getElementById('failedToast')
+
+        if (response.ok) {
+            var toast = new bootstrap.Toast(successToastF)
+            toast.show()
+        }
+        else
+        {
+            var toast = new bootstrap.Toast(failedToastF)
+            toast.show()
+        }
     }
 
 </script>

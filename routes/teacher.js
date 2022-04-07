@@ -11,7 +11,6 @@ router.get('/', function (request, response) {
                 path: 'lessons' }
         })
         .then(res => {
-            console.log(res)
             response.render('listTeacher', { tab: res })
         })
         .catch(err => {
@@ -29,7 +28,6 @@ router.get('/:id', function (request, response) {
     teacher.findById(id)
         .populate('persons')
         .then(res => {
-            console.log(res)
             response.status(200).send({ result: 'ok', data: res })
         })
         .catch(err => {

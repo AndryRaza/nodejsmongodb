@@ -13,6 +13,5 @@
 
 ## Améliorations à faire mais flemme 
 
-- Passer en mode asynchrone
 - Ranger les fonctions des routes 
-- Utiliser la méthode lean() de mongoose qui accélère les recherches askip
+- Tenter d'utiliser la méthode lean() de mongoose qui accélère les recherches askip
