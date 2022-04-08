@@ -6,6 +6,9 @@ On imagine qu'on travaille pour une agence de soutiens scolaires. On crée l'ét
 
 ## Commandes shell
 
+Installer les modules nécessaires
+> npm install
+
 Lancer le serveur
 > npm start 
 
