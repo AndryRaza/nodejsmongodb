@@ -11,7 +11,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 const lessons = [
     {
-        name: 'Dev c#'
+        name: 'Dev Csharp'
     },
     {
         name: 'Dev Java'
