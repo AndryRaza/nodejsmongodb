@@ -2,8 +2,6 @@ var express = require("express");
 
 var app = express();
 
-const url = 'mongodb+srv://andry:andry@cluster0.pkqfu.mongodb.net/'
-const dbName = 'nodetp';
 const person = require('./models/person.js')
 const mongoose = require('mongoose');
 
